@@ -62,11 +62,13 @@ namespace polylabelfast {
             }
             polygon.push_back(std::move(ringNew));
         }
-        auto pointMapbox = mapbox::polylabel(polygon, precision);
+        mapbox::geometry::point<double> pointMapbox;
+        double dist = 0.0;
+        std::tie(pointMapbox, dist) = mapbox::polylabel(polygon, precision);
         pointReturn[0]= pointMapbox.x;
         pointReturn[1] = pointMapbox.y;
 
-        return std::make_tuple(pointReturn, 1.0);
+        return std::make_tuple(pointReturn, dist);
 
     }
 

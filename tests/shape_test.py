@@ -31,6 +31,7 @@ def test_verify_simple_circle():
     circle = create_circle([0,0], 10)
     point, dist = polylabelfast(circle)
     assert point == [0.0, 0.0]
+    assert dist == pytest.approx(10.0, .2)
 
 def test_shapely_algorithm_large_circle(benchmark):
     circle = Point(0,0).buffer(1000, resolution=256)

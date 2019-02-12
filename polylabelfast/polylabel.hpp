@@ -102,7 +102,7 @@ Cell<T> getCentroidCell(const geometry::polygon<T>& polygon) {
 } // namespace detail
 
 template <class T>
-geometry::point<T> polylabel(const geometry::polygon<T>& polygon, T precision = 1, bool debug = false) {
+std::tuple<geometry::point<T>, T> polylabel(const geometry::polygon<T>& polygon, T precision = 1, bool debug = false) {
     using namespace detail;
 
     // find the bounding box of the outer ring
@@ -124,7 +124,7 @@ geometry::point<T> polylabel(const geometry::polygon<T>& polygon, T precision = 
     Queue cellQueue(compareMax);
 
     if (cellSize == 0) {
-        return envelope.min;
+        return std::make_tuple(envelope.min, 0.0);
     }
 
     // cover polygon with initial cells
@@ -172,7 +172,7 @@ geometry::point<T> polylabel(const geometry::polygon<T>& polygon, T precision = 
         std::cout << "best distance: " << bestCell.d << std::endl;
     }
 
-    return bestCell.c;
+    return std::make_tuple(bestCell.c, bestCell.d);
 }
 
 } // namespace mapbox

@@ -45,9 +45,9 @@ ext_modules = [
         ['polylabelfast/module.cpp', 'polylabelfast/polylabelfast.cpp'],
         include_dirs=[
             # Path to pybind11 headers
-            get_pybind_include(),
+            get_pybind_include(parent=False),
             get_pybind_include(parent=True),
-            get_pybind_include(user=True),
+            get_pybind_include(user=True, parent=False),
             get_pybind_include(user=True, parent=True),
             get_numpy_include(),
             'polylabelfast/'
